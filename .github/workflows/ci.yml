@@ -1,0 +1,56 @@
+name: "tagged-release"
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build-windows:
+    name: "Build for Windows"
+    runs-on: "windows-latest"
+    steps:
+      - uses: actions/checkout@v4
+      - name: "Build for windows"
+        run: |
+          cargo build -r
+      - name: "Upload artifact"
+        uses: actions/upload-artifact@v4
+        with:
+          name: rust-set.exe
+          path: target/release/set-cli.exe
+  build-linux:
+    name: "Build for Linux"
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: actions/checkout@v4
+      - name: "Build for windows"
+        run: |
+          rustup target add x86_64-unknown-linux-musl
+          cargo build -r --target x86_64-unknown-linux-musl
+      - name: "Upload artifact"
+        uses: actions/upload-artifact@v4
+        with:
+          name: rust-set
+          path: target/x86_64-unknown-linux-musl/release/rust-set
+
+  tagged-release:
+    name: "Do release"
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: rust-set
+          path: rust-set
+      - uses: actions/download-artifact@v4
+        with:
+            name: rust-set.exe
+            path: rust-set.exe
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
+          files: |
+            rust-set
+            rust-set.exe
