@@ -12,8 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: "Build for windows"
-        run: |
-          cargo build -r
+        run: cargo build -r
       - name: "Upload artifact"
         uses: actions/upload-artifact@v4
         with:
@@ -35,6 +34,9 @@ jobs:
           path: target/x86_64-unknown-linux-musl/release/rust-set
 
   tagged-release:
+    needs:
+      - build-windows
+      - build-linux
     name: "Do release"
     runs-on: "ubuntu-latest"
 
