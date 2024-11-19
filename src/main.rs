@@ -12,6 +12,13 @@ use tutorial::*;
 mod game;
 use game::Game;
 
+
+// suspicious path thing
+#[cfg(windows)]
+static LICENCE:&str = std::include_str!("..\\LICENCE");
+#[cfg(unix)]
+static LICENCE:&str = std::include_str!("../LICENCE");
+
 static S: crossterm::style::Print<&str> = crossterm::style::Print(" ");
 fn main() {
     std::panic::set_hook(Box::new(|panic_info| {
@@ -27,19 +34,19 @@ fn main_fn() -> Result<(), Box<dyn std::error::Error>> {
         style::Stylize, terminal::*,
     };
     let mut stdout = std::io::stdout();
-    enable_raw_mode()?;
 
     queue!(
         stdout,
-        EnableMouseCapture,
         EnterAlternateScreen,
         Clear(ClearType::Purge),
         Hide,
         SavePosition,
         MoveTo(0, 0),
-        P("rust-set v0.0.0 - Rust implementation of Set"),
-        MoveToNextLine(1)
+        P("rust-set v0.0.1 - Rust implementation of Set\n"),
+        P(LICENCE),
+        P("\n\n")
     )?;
+    enable_raw_mode()?;
     loop {
         queue!(
             stdout,
@@ -66,6 +73,7 @@ fn main_fn() -> Result<(), Box<dyn std::error::Error>> {
     // increment timer
     queue!(
         stdout,
+        EnableMouseCapture,
         Clear(ClearType::All),
         MoveTo(0, 0),
         PS("Time elapsed: ".bold()),
@@ -184,7 +192,5 @@ fn main_fn() -> Result<(), Box<dyn std::error::Error>> {
         }
         queue!(stdout, MoveTo(0, 1))?;
         game.print(&mut stdout)?;
-
-        std::mem::drop(game); // unlock thread for others to use
     }
 }

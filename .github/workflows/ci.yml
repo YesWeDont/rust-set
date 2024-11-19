@@ -49,16 +49,20 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: rust-set
-          path: rust-set
+          path: rust-set-x86_64-unknown-linux-musl
       - uses: actions/download-artifact@v4
         with:
             name: rust-set.exe
             path: rust-set.exe
+      - uses: actions/download-artifact@v4
+        with:
+            name: LICENCE
+            path: LICENCE
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: false
           files: |
-            rust-set
+            rust-set-x86_64-unknown-linux-musl
             rust-set.exe
             LICENCE

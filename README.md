@@ -1,6 +1,15 @@
 ## rust-set 
 Set! is a concentration game invented by Marsha Falco in 1974. `rust-set` is a single-player implementation of Set written in Rust.
 
+## Potential todos
+- [] Find some way to link tutorial page to this document so I can avoid manually mirroring changes across
+- [] Testing on Mac OS/other terminals
+- [] CLI options (game difficulty options such as modifying card count, allowing 
+hints; seeding the RNG)
+- [] Saving and sharing game replays (current hack: use tee to save to log-file)
+- [] Variations of rules e.g. Set-Chain, ultraset, n-set
+- [] Some sort of multiplayer (very annoying, probably not in the near future)
+
 ## Rules
 In the game, *cards* with patterns are shown to the player and the player aims to find *sets* within the given cards. Such cards have four *attributes*: shape, number, colour and decoration. Three cards form a set if, for every single attribute of the above four, that attribute is the same in each card, or that attribute is all different for each card. After three such cards are found by the player, they are removed into the discard pile, and three new cards are drawn repeatedly from the unused pile to replace the three removed cards such that there are again exactly 12 cards shown. If there is no set within the 12 cards, extra cards drawn in threes until is a set; however, they will not be replenished after the player finds a set unless required by the previous criterion. If the unused pile is depleted, the game ends after the player finds all remaining sets on screen.
 
@@ -20,16 +29,3 @@ Shape, number, colour and shading (replaced with decoration) take the following 
 - Number: > (one), >> (two), >>> (three)
 - Colour: red, green, purple
 - Decoration: no underline, 1 underline or 2 underlines
-
-
-Have fun!
-
-## Potential todos
-- [] Find some way to link tutorial page to this document so I can avoid manually mirroring changes across
-- [] Testing on Mac OS/other terminals
-- [] CLI options (game difficulty options such as modifying card count, allowing 
-hints; seeding the RNG)
-- [] Saving and sharing game replays 
-(current hack: use tee to save to log-file)
-- [] Variations of rules e.g. Set-Chain, ultraset, n-set
-- [] Some sort of multiplayer (very annoying, probably not in the near future)
