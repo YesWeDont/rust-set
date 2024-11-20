@@ -2,9 +2,9 @@ use crate::card::Card;
 
 pub static KEYBINDS: &str =
     "  q w e r t y u
-  a s d f g h j
-  z x c v b n m
-  Q to quit anytime";
+\r  a s d f g h j
+\r  z x c v b n m
+\r  Q to quit anytime";
 pub fn tutorial() -> Result<(), std::io::Error> {
     crossterm::terminal::disable_raw_mode()?;
     crossterm::queue!(std::io::stdout(), crossterm::style::Print(format!("

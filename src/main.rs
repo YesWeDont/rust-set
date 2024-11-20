@@ -42,7 +42,7 @@ fn main_fn() -> Result<(), Box<dyn std::error::Error>> {
         Hide,
         SavePosition,
         MoveTo(0, 0),
-        P("rust-set v0.0.1 - Rust implementation of Set\n"),
+        P("rust-set v0.0.2 - Rust implementation of Set\n"),
         P(LICENCE),
         P("\n\n")
     )?;
